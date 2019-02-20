@@ -25,11 +25,9 @@ btnX=16
 
 
 # Variables auxiliares
-
 speed=1
 step=5
 sp0 =0.15
-
 anguloX = 90
 anguloY = 0
 
@@ -64,36 +62,32 @@ def rotateL():
     
 def rotateR():
     kit.continuous_servo[13].throttle = sp0
-    kit.continuous_servo[12].throttle = -speed
+    kit.continuous_servo[12].throttle = speed
            
 def brake():
     kit.continuous_servo[13].throttle = sp0
     kit.continuous_servo[12].throttle = sp0
     
 
-
-
 def camX(value):
-    global anguloX
-    anguloX = brazo(anguloX - step*value)
+    anguloX = brazo(anguloX + step)
     print(anguloX)
     kit.servo[15].angle = anguloX
     
 def camY(value):
-    global anguloY
-    anguloY = brazo(anguloY + step*value)
+    anguloY = brazo(anguloY + step)
     print(anguloY)
-    kit.servo[14].angle = anguloY
+    kit.servo[15].angle = anguloY
 
 
 #motor L
 kit.continuous_servo[12].throttle = sp0
 #motor R
 kit.continuous_servo[13].throttle = sp0
-#servo T (Y)
-kit.servo[14].angle = anguloY
-#servo P (X)
-kit.servo[15].angle = anguloX
+#servo T (X)
+kit.servo[14].angle = anguloX
+#servo P (Y)
+kit.servo[15].angle = anguloY
 
 for event in gamepad.read_loop():
 
@@ -106,7 +100,7 @@ for event in gamepad.read_loop():
 #                print('Pulsado btn1')
 #            elif event.value == 0:
 #                print('btn1 released')
-                
+    		
         if event.code == btn2:
             if event.value == 1:
                 print('Pulsado btn2')
