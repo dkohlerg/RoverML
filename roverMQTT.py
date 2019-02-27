@@ -2,13 +2,15 @@
 # received data matches two predefined 'commands'
 
 import paho.mqtt.client as mqtt
+from Rover import Rover
 
 host_address='test.mosquitto.org'
+speed=1, step=1, sp0 =0.15, agX = 90, agY = 180
+rover = Rover(speed,step,sp0,agX,agY)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
     print('Connected with result code '+str(rc))
-
     # Subscribing in on_connect() - if we lose the connection and reconnect then
     # subscriptions will be renewed.
     client.subscribe('atnmsRover/CMcontrol')
@@ -18,12 +20,20 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     msg.payload=msg.payload.decode('utf-8')
     print(str(msg.payload))
-#    if msg.payload =="Hello":
-#        print("Received message 1, do something")
-#        # Do something
-#    if msg.payload == "World!":
-#        print("Received message 2, do something else")
-#        # Do something else
+
+    if msg.payload =='mmFW':
+        rover.mmFW()
+        
+    elif msg.payload=='mmFWL':
+        rover.mmFWL()
+    
+    elif msg.payload=='mmFWR':
+        rover.mmFWR()
+        
+    elif msg.payload=='mmBW':
+        rover.mmBW()
+
+
 
 # Create an MQTT client and attach our routines to it.
 client = mqtt.Client()

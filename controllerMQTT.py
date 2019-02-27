@@ -27,15 +27,15 @@ btnX=16
 host_address='test.mosquitto.org'
 
 for event in gamepad.read_loop():
-    
+
     # Digitales
-    
+
     if event.type == ecodes.EV_KEY:
 
         if event.code == btn1:
             if event.value == 1:
-                publish.single('atnmsRover/CMcontrol','CMDW',hostname=host_address)
-                print('CMDW published')
+                publish.single('atnmsRover/CMcontrol','cmDW',hostname=host_address)
+                print('cmDW published')
             elif event.value == 0:
                 publish.single('atnmsRover/CMcontrol','StpCMDW',hostname=host_address)
                 print('StpCMDW published')
@@ -45,11 +45,11 @@ for event in gamepad.read_loop():
 #                print('Pulsado btn2')
 #            elif event.value == 0:
 #                print('btn2 released')
-                
+
         elif event.code == btn3:
             if event.value == 1:
-                publish.single('atnmsRover/CMcontrol','CMUP',hostname=host_address)
-                print('CMUP published')
+                publish.single('atnmsRover/CMcontrol','cmUP',hostname=host_address)
+                print('cmUP published')
             elif event.value == 0:
                 publish.single('atnmsRover/CMcontrol','StpCMUP',hostname=host_address)
                 print('StpCMUP published')
@@ -62,31 +62,31 @@ for event in gamepad.read_loop():
 
         elif event.code == btnR:
             if event.value == 1:
-                publish.single('atnmsRover/CMcontrol','CMR',hostname=host_address)
-                print('CMR published')
+                publish.single('atnmsRover/CMcontrol','cmR',hostname=host_address)
+                print('cmR published')
             elif event.value == 0:
                 publish.single('atnmsRover/CMcontrol','StpCMR',hostname=host_address)
                 print('StpCMR published')
-                
+
         elif event.code == btnL:
             if event.value == 1:
-                publish.single('atnmsRover/CMcontrol','CML',hostname=host_address)
-                print('CML published')
+                publish.single('atnmsRover/CMcontrol','cmL',hostname=host_address)
+                print('cmL published')
             elif event.value == 0:
                 publish.single('atnmsRover/CMcontrol','StpCML',hostname=host_address)
                 print('StpCML published')
-                
+
         elif event.code == btnStart:
             if event.value == 1:
                 publish.single('atnmsRover/CMcontrol','START',hostname=host_address)
                 print('START published')
-                
+
 #        elif event.code == btnSelect:
 #            if event.value == 1:
 #                print('Pulsado btnSelect')
 #            elif event.value == 0:
 #                print('btnSelect released')
-#                
+#
 #        elif event.code == btnStart:
 #            if event.value == 1:
 #                print('Pulsado btnStart')
@@ -94,27 +94,26 @@ for event in gamepad.read_loop():
 #                print('btnStart released')
 
     # Analog
-    
+
     else:
         if event.code == btnY:
             if event.value == -1:
-                publish.single('atnmsRover/MMcontrol','MMFW',hostname=host_address)
-                print('MMFW published')
+                publish.single('atnmsRover/MMcontrol','mmFW',hostname=host_address)
+                print('mmFW published')
             elif event.value == 1:
-                publish.single('atnmsRover/MMcontrol','MMBW',hostname=host_address)
-                print('MMBW published')
+                publish.single('atnmsRover/MMcontrol','mmBW',hostname=host_address)
+                print('mmBW published')
             else:
                 publish.single('atnmsRover/MMcontrol','StpFWBW',hostname=host_address)
                 print('StpFWBW published')
-                
+
         elif event.code == btnX:
             if event.value == -1:
-                publish.single('atnmsRover/MMcontrol','MMFWL',hostname=host_address)
-                print('MMFWL published')
+                publish.single('atnmsRover/MMcontrol','mmFWL',hostname=host_address)
+                print('mmFWL published')
             elif event.value == 1:
-                publish.single('atnmsRover/MMcontrol','MMFWR',hostname=host_address)
-                print('MMBWR published')
+                publish.single('atnmsRover/MMcontrol','mmFWR',hostname=host_address)
+                print('mmBWR published')
             else:
                 publish.single('atnmsRover/MMcontrol','StpFWLR',hostname=host_address)
                 print('StpFWLR published')
-

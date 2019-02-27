@@ -29,7 +29,6 @@ btnX=16
 speed=1
 step=1
 sp0 =0.15
-
 anguloX = 90
 anguloY = 180
 
@@ -40,36 +39,36 @@ def brazo(a):
         return 180
     else:
         return a
-    
+
 def rueda(a):
         if a>0:
                 return 1
         else:
                 return 0
-        
+
 def forward(a):
     kit.continuous_servo[13].throttle = -a*speed
     kit.continuous_servo[12].throttle = a*speed
-    
+
 def rotateL():
     kit.continuous_servo[13].throttle = speed
     kit.continuous_servo[12].throttle = sp0
-    
+
 def rotateR():
     kit.continuous_servo[13].throttle = sp0
     kit.continuous_servo[12].throttle = -speed
-           
+
 def brake():
     kit.continuous_servo[13].throttle = sp0
     kit.continuous_servo[12].throttle = sp0
-    
+
 
 def camX(value):
     global anguloX
     anguloX = brazo(anguloX - step*value)
     print(anguloX)
     kit.servo[15].angle = anguloX
-    
+
 def camY(value):
     global anguloY
     anguloY = brazo(anguloY + step*value)
@@ -89,7 +88,7 @@ kit.servo[15].angle = anguloX
 for event in gamepad.read_loop():
 
 # Digitales
-    
+
     if event.type == ecodes.EV_KEY:
 
 #        if event.code == btn1:
@@ -97,42 +96,42 @@ for event in gamepad.read_loop():
 #                print('Pulsado btn1')
 #            elif event.value == 0:
 #                print('btn1 released')
-                
+
         if event.code == btn4:
             if event.value != 0:
                 print('Pulsado btn4')
                 camY(-1)
             elif event.value == 0:
                 print('btn4 released')
-                
+
 #        elif event.code == btn3:
 #           if event.value == 1:
 #               print('Pulsado btn3')
 #           elif event.value == 0:
 #               print('btn3 released')
-                
-                
+
+
         elif event.code == btn2:
             if event.value != 0:
                 print('Pulsado btn2')
                 camY(1)
             elif event.value == 0:
                 print('btn2 released')
-                
+
         elif event.code == btnR:
             if event.value != 0:
                 print('Pulsado btnR')
                 camX(1)
             elif event.value == 0:
                 print('btnR released')
-                
+
         elif event.code == btnL:
             if event.value != 0:
                 print('Pulsado btnL')
                 camX(-1)
             elif event.value == 0:
                 print('btnL released')
-                
+
         elif event.code == btnPlay:
             if event.value == 1:
                 print('Pulsado btnPlay')
@@ -140,22 +139,22 @@ for event in gamepad.read_loop():
             elif event.value == 0:
                 print('btnPlay released')
                 brake()
-                
+
 #        elif event.code == btnSelect:
 #            if event.value == 1:
 #                print('Pulsado btnSelect')
 #            elif event.value == 0:
 #                print('btnSelect released')
-#                
+#
 #        elif event.code == btnStart:
 #            if event.value == 1:
 #                print('Pulsado btnStart')
 #            elif event.value == 0:
 #                print('btnStart released')
 
-                
+
     # Analog
-    
+
     else:
         if event.code == btnX:
             if event.value == -1:
@@ -167,7 +166,7 @@ for event in gamepad.read_loop():
             else:
                 print('R/L released')
                 brake()
-                
+
         elif event.code == btnY:
             if event.value != 0:
                 print('pulsado up/down')
