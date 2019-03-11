@@ -24,7 +24,7 @@ btnX=16
 
 # host name MQTT
 
-host_address='test.mosquitto.org'
+host_address='broker.hivemq.com'
 
 for event in gamepad.read_loop():
 
@@ -76,10 +76,10 @@ for event in gamepad.read_loop():
                 publish.single('atnmsRover/CMcontrol','StpCML',hostname=host_address)
                 print('StpCML published')
 
-        elif event.code == btnStart:
+        elif event.code == btnPlay:
             if event.value == 1:
-                publish.single('atnmsRover/CMcontrol','START',hostname=host_address)
-                print('START published')
+                publish.single('atnmsRover/MMcontrol','PLAY',hostname=host_address)
+                print('PLAY published')
 
 #        elif event.code == btnSelect:
 #            if event.value == 1:

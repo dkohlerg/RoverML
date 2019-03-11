@@ -3,10 +3,16 @@
 
 import paho.mqtt.client as mqtt
 from Rover import Rover
+from adafruit_servokit import ServoKit
+kit = ServoKit(channels=16)
 
-host_address='test.mosquitto.org'
-speed=1, step=1, sp0 =0.15, agX = 90, agY = 180
-rover = Rover(speed,step,sp0,agX,agY)
+host_address='broker.hivemq.com'
+speed=1
+step=5
+sp0 =0.15
+agX = 90
+agY = 180
+rover = Rover(speed,step,sp0,agX,agY,kit)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -33,7 +39,20 @@ def on_message(client, userdata, msg):
     elif msg.payload=='mmBW':
         rover.mmBW()
 
+    elif ((msg.payload=='StpFWBW')or(msg.payload=='StpFWLR')):
+        rover.stp()
 
+    elif msg.payload == 'cmL':
+        rover.cmL()
+
+    elif msg.payload == 'cmR':
+        rover.cmR()
+
+    elif msg.payload == 'cmUP':
+        rover.cmUP()
+
+    elif msg.payload == 'cmDW':
+        rover.cmDW()
 
 # Create an MQTT client and attach our routines to it.
 client = mqtt.Client()

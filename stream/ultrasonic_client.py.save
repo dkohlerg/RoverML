@@ -2,7 +2,7 @@
 from socket import *
 import time
 import RPi.GPIO as GPIO
-import struct
+
 
 GPIO.setwarnings(False)
 
@@ -46,11 +46,10 @@ GPIO.output(GPIO_TRIGGER, False)
 
 try:
     while True:
-        distance =measure()
+        distance = measure()
         print ("Distance : %.1f cm" % distance)
         # send data to the host every 0.5 sec
-        data =  struct.pack('!d',distance)
-        client_socket.send(data)
+        client_socket.send(b''<distance)
         time.sleep(0.5)
 finally:
     client_socket.close()

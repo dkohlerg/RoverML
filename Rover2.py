@@ -1,4 +1,4 @@
-class Rover(object):
+class Rover:
 
     from adafruit_servokit import ServoKit
     ## CONSTRUCTOR
@@ -15,28 +15,26 @@ class Rover(object):
         #motor R
         #kit.continuous_servo[13].throttle = sp0
         #servo T (Y)
-        kit.servo[14].angle = agY
+        #kit.servo[14].angle = agY
         #servo P (X)
-        kit.servo[15].angle = agX
+        #kit.servo[15].angle = agX
 
 
      ## METODOS PARA EL MOVIMIENTO DE LOS MOTORES PRINCIPALES
 
     def mmFW(self):
-         self.kit.continuous_servo[13].throttle = self.speed
-         self.kit.continuous_servo[12].throttle = -self.speed
+         self.kit.continuous_servo[13].throttle = self.speed - self.sp0
+         self.kit.continuous_servo[12].throttle = -self.speed + self.sp0
 
     def mmBW(self):
-        self.kit.continuous_servo[13].throttle = -self.speed
-        self.kit.continuous_servo[12].throttle = self.speed
-
+        self.kit.continuous_servo[13].throttle = -self.speed + self.sp0
+        self.kit.continuous_servo[12].throttle = self.speed - self.sp0
     def mmFWL(self):
-        self.kit.continuous_servo[13].throttle = self.speed
-        self.kit.continuous_servo[12].throttle = self.sp0
-
+        self.kit.continuous_servo[13].throttle = self.speed - self.sp0
+        self.kit.continuous_servo[12].throttle = -0.5*self.speed + self.sp0
     def mmFWR(self):
-        self.kit.continuous_servo[13].throttle = self.sp0
-        self.kit.continuous_servo[12].throttle = -self.speed
+        self.kit.continuous_servo[13].throttle = 0.5*(self.speed) - self.sp0
+        self.kit.continuous_servo[12].throttle = -self.speed + self.sp0
 
     def stp(self):
         self.kit.continuous_servo[13].throttle = self.sp0
@@ -54,7 +52,7 @@ class Rover(object):
 
     def cmR(self):
         if ((self.agX - self.step) > 0):
-            self.agX=self.agX - self.step
+            self.agX=self.agX + self.step
             self.kit.servo[15].angle = self.agX
 
 
