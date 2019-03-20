@@ -59,7 +59,7 @@ class Rover(object):
 
 
     def cmUP(self):
-        if (self.agY - self.step) > 0:
+        if (self.agY - self.step) > 70:
             self.agY=self.agY - self.step
             self.kit.servo[14].angle = self.agY
 

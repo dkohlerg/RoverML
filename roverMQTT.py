@@ -8,11 +8,14 @@ kit = ServoKit(channels=16)
 
 host_address='broker.hivemq.com'
 speed=1
-step=5
+step=0.1
 sp0 =0.15
 agX = 90
 agY = 180
 rover = Rover(speed,step,sp0,agX,agY,kit)
+global actualmsg
+actualmsg = None
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -25,23 +28,12 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     msg.payload=msg.payload.decode('utf-8')
-    print(str(msg.payload))
+    global actualmsg
+    actualmsg=msg.payload
+    print('payload= ' + str(msg.payload))
 
-    if msg.payload =='mmFW':
-        rover.mmFW()
         
-    elif msg.payload=='mmFWL':
-        rover.mmFWL()
-    
-    elif msg.payload=='mmFWR':
-        rover.mmFWR()
-        
-    elif msg.payload=='mmBW':
-        rover.mmBW()
-
-    elif ((msg.payload=='StpFWBW')or(msg.payload=='StpFWLR')):
-        rover.stp()
-
+'''
     elif msg.payload == 'cmL':
         rover.cmL()
 
@@ -53,6 +45,7 @@ def on_message(client, userdata, msg):
 
     elif msg.payload == 'cmDW':
         rover.cmDW()
+'''
 
 # Create an MQTT client and attach our routines to it.
 client = mqtt.Client()
@@ -63,4 +56,32 @@ client.connect(host_address, 1883, 60)
 # Process network traffic and dispatch callbacks. This will also handle reconnecting.
 # Check the documentation at https://github.com/eclipse/paho.mqtt.python for information
 # on how to use other loop*() functions
-client.loop_forever()
+while True:
+    client.loop_start()
+        
+    if actualmsg =='mmFW':
+        rover.mmFW()
+        
+    elif actualmsg=='mmFWL':
+        rover.mmFWL()
+    
+    elif actualmsg=='mmFWR':
+        rover.mmFWR()
+        
+    elif actualmsg=='mmBW':
+        rover.mmBW()
+
+    elif ((actualmsg=='StpFWBW')or(actualmsg=='StpFWLR')):
+        rover.stp()
+
+    while actualmsg == 'cmL':
+            rover.cmL()
+
+    while actualmsg == 'cmR':
+            rover.cmR()
+
+    while actualmsg == 'cmUP':
+            rover.cmUP()
+
+    while actualmsg == 'cmDW':
+            rover.cmDW()
