@@ -11,9 +11,9 @@ class Rover(object):
         self.agY=agY
         self.kit=kit
         #motor L
-        #kit.continuous_servo[12].throttle = sp0
+        kit.continuous_servo[12].throttle = sp0
         #motor R
-        #kit.continuous_servo[13].throttle = sp0
+        kit.continuous_servo[13].throttle = sp0
         #servo T (Y)
         kit.servo[14].angle = agY
         #servo P (X)

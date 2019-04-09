@@ -32,32 +32,19 @@ def on_message(client, userdata, msg):
     actualmsg=msg.payload
     print('payload= ' + str(msg.payload))
 
-        
-'''
-    elif msg.payload == 'cmL':
-        rover.cmL()
+    '''
+    if actualmsg == 'cmL':
+            rover.cmL()
 
-    elif msg.payload == 'cmR':
-        rover.cmR()
+    elif actualmsg == 'cmR':
+            rover.cmR()
 
-    elif msg.payload == 'cmUP':
-        rover.cmUP()
+    elif actualmsg == 'cmUP':
+            rover.cmUP()
 
-    elif msg.payload == 'cmDW':
-        rover.cmDW()
-'''
-
-# Create an MQTT client and attach our routines to it.
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-client.connect(host_address, 1883, 60)
-
-# Process network traffic and dispatch callbacks. This will also handle reconnecting.
-# Check the documentation at https://github.com/eclipse/paho.mqtt.python for information
-# on how to use other loop*() functions
-while True:
-    client.loop_start()
+    elif actualmsg == 'cmDW':
+            rover.cmDW()
+    '''
         
     if actualmsg =='mmFW':
         rover.mmFW()
@@ -71,8 +58,27 @@ while True:
     elif actualmsg=='mmBW':
         rover.mmBW()
 
-    elif ((actualmsg=='StpFWBW')or(actualmsg=='StpFWLR')):
+    elif actualmsg=='StpFWLR':
         rover.stp()
+
+    elif actualmsg=='StpFWBW':
+        rover.stp()
+        
+
+# Create an MQTT client and attach our routines to it.
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect(host_address, 1883, 60)
+
+# Process network traffic and dispatch callbacks. This will also handle reconnecting.
+# Check the documentation at https://github.com/eclipse/paho.mqtt.python for information
+# on how to use other loop*() functions
+
+
+while True:
+    
+    client.loop_start()
 
     while actualmsg == 'cmL':
             rover.cmL()
@@ -85,3 +91,4 @@ while True:
 
     while actualmsg == 'cmDW':
             rover.cmDW()
+
