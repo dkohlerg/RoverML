@@ -24,19 +24,19 @@ class Rover(object):
 
     def mmFW(self):
          self.kit.continuous_servo[13].throttle = self.speed
-         self.kit.continuous_servo[12].throttle = -self.speed
+         self.kit.continuous_servo[12].throttle = -self.speed + 0.3
 
     def mmBW(self):
-        self.kit.continuous_servo[13].throttle = -self.speed
+        self.kit.continuous_servo[13].throttle = -self.speed + 0.3
         self.kit.continuous_servo[12].throttle = self.speed
 
     def mmFWL(self):
-        self.kit.continuous_servo[13].throttle = self.speed
-        self.kit.continuous_servo[12].throttle = self.sp0
+        self.kit.continuous_servo[13].throttle = 1
+        self.kit.continuous_servo[12].throttle = 0
 
     def mmFWR(self):
-        self.kit.continuous_servo[13].throttle = self.sp0
-        self.kit.continuous_servo[12].throttle = -self.speed
+        self.kit.continuous_servo[13].throttle = 0.30
+        self.kit.continuous_servo[12].throttle = -0.70
 
     def stp(self):
         self.kit.continuous_servo[13].throttle = self.sp0
@@ -57,14 +57,12 @@ class Rover(object):
             self.agX=self.agX - self.step
             self.kit.servo[15].angle = self.agX
 
-
     def cmUP(self):
-        if (self.agY - self.step) > 70:
-            self.agY=self.agY - self.step
-            self.kit.servo[14].angle = self.agY
-
-    def cmDW(self):
-        if (self.agY + self.step) < 180:
+        if (self.agY + self.step) < 125:
             self.agY=self.agY + self.step
             self.kit.servo[14].angle = self.agY
 
+    def cmDW(self):
+        if (self.agY - self.step) > 0:
+            self.agY=self.agY - self.step
+            self.kit.servo[14].angle = self.agY

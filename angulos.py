@@ -8,10 +8,10 @@ kit = ServoKit(channels=16)
 
 host_address='broker.hivemq.com'
 speed=1
-step=0.05
+step=0.1
 sp0 =0.15
 agX = 90
-agY = 30
+agY = 130
 rover = Rover(speed,step,sp0,agX,agY,kit)
 global actualmsg
 actualmsg = None
