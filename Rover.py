@@ -24,10 +24,9 @@ class Rover(object):
 
     def mmFW(self):
          self.kit.continuous_servo[13].throttle = self.speed
-         self.kit.continuous_servo[12].throttle = -self.speed + 0.3
-
+         self.kit.continuous_servo[12].throttle = -self.speed +0.3
     def mmBW(self):
-        self.kit.continuous_servo[13].throttle = -self.speed + 0.3
+        self.kit.continuous_servo[13].throttle = -self.speed +0.3
         self.kit.continuous_servo[12].throttle = self.speed
 
     def mmFWL(self):
@@ -35,8 +34,8 @@ class Rover(object):
         self.kit.continuous_servo[12].throttle = 0
 
     def mmFWR(self):
-        self.kit.continuous_servo[13].throttle = 0.30
-        self.kit.continuous_servo[12].throttle = -0.70
+        self.kit.continuous_servo[13].throttle = 0.3
+        self.kit.continuous_servo[12].throttle = -0.7
 
     def stp(self):
         self.kit.continuous_servo[13].throttle = self.sp0
