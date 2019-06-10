@@ -8,7 +8,7 @@ GPIO.setwarnings(False)
 
 # create a socket and bind socket to the host
 client_socket = socket(AF_INET, SOCK_STREAM)
-client_socket.connect(('192.168.1.38', 8002))
+client_socket.connect(('10.8.0.17', 8002))
 
 def measure():
     """

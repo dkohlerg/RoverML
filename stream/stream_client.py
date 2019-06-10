@@ -14,7 +14,7 @@ connection = client_socket.makefile('wb')
 try:
     with picamera.PiCamera() as camera:
         camera.resolution = (320, 240)      # pi camera resolution
-        camera.framerate = 15               # 15 frames/sec
+        camera.framerate = 5                # 5 frames/sec
         time.sleep(2)                       # give 2 secs for camera to initilize
         start = time.time()
         stream = io.BytesIO()
@@ -25,6 +25,7 @@ try:
             connection.flush()
             stream.seek(0)
             connection.write(stream.read())
+           
             if time.time() - start > 600:
                 break
             stream.seek(0)
